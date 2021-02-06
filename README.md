@@ -11,5 +11,5 @@ reinforcement learning implmentations:
 
 ## 3D scene reconstruction and understanding (3D semantic)
  - https://paperswithcode.com/task/3d-scene-reconstruction
- - https://paperswithcode.com/paper/atlas-end-to-end-3d-scene-reconstruction-from#code
+ - https://github.com/magicleap/Atlas
  
