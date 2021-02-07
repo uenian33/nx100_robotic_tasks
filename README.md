@@ -9,7 +9,20 @@ reinforcement learning implmentations:
 - https://openreview.net/pdf?id=BJZt4KywG
 - https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=9210095 
 
+- ACRONYM: A Large-Scale Grasp Dataset Based on Simulation
+https://arxiv.org/pdf/2011.09584.pdf
+
 ## 3D scene reconstruction and understanding (3D semantic)
  - https://paperswithcode.com/task/3d-scene-reconstruction
  - https://github.com/magicleap/Atlas
  
+## depth object detection
+Frustum VoxNet for 3D object detection from RGB-D or Depth images
+- https://arxiv.org/pdf/1910.05483.pdf
+
+Real-Time 3D Object Detection on Mobile Devices with MediaPipe
+- https://ai.googleblog.com/2020/03/real-time-3d-object-detection-on-mobile.html
+
+Vision‑based robotic grasping from object localization, object pose estimation to grasp estimation for parallel grippers: a review
+- https://sci-hub.st/https://link.springer.com/article/10.1007/s10462-020-09888-5
+
