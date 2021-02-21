@@ -1,10 +1,10 @@
 # Robotic_tasks
 Potential tasks implementation for nx100-remote-control
 
-The inital version of 3d semantic slam pipeline
+- The inital version of 3d semantic slam pipeline
 ![plot](3d_map_local.png)
 
-The inital version of object grasping pipeline
+- The inital version of object grasping pipeline
 ![plot](grasp_pipeline.png)
 
 ## general object grasping
