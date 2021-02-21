@@ -1,6 +1,12 @@
 # Robotic_tasks
 Potential tasks implementation for nx100-remote-control
 
+The inital version of 3d semantic slam pipeline
+![plot](3d_map_local.png)
+
+The inital version of object grasping pipeline
+![plot](grasp_pipeline.png)
+
 ## general object grasping
 reinforcement learning implmentations:
 - https://openaccess.thecvf.com/content_CVPR_2020/papers/Fang_GraspNet-1Billion_A_Large-Scale_Benchmark_for_General_Object_Grasping_CVPR_2020_paper.pdf
