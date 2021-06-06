@@ -9,3 +9,6 @@ Potential tasks implementation for nx100-remote-control
 - [ ] Combine previous camera calibration with new disparity pipeline
 - [ ] Object sgementation feature extraction
 - [ ] Semantic features + depth features for imitation learning
+
+## Usage examples
+Check disparity_estimation and stereo folders correspondingly
