@@ -73,12 +73,12 @@ The source code for amazing white balance adjustment is from work (https://githu
 ```
 
 The source code for great SOTA disparity estimation is using method (https://github.com/mli0603/stereo-transformer)
-'''
+```
 @article{li2020revisiting,
   title={Revisiting Stereo Depth Estimation From a Sequence-to-Sequence Perspective with Transformers},
   author={Li, Zhaoshuo and Liu, Xingtong and Drenkow, Nathan and Ding, Andy and Creighton, Francis X and Taylor, Russell H and Unberath, Mathias},
   journal={arXiv preprint arXiv:2011.02910},
   year={2020}
 }
-'''
+```
 
