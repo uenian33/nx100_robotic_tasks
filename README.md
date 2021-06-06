@@ -1,4 +1,4 @@
-# nx100_robotic_tasks
+# Stereo camera + motoman learning tasks
 Potential tasks implementation for nx100-remote-control
 
 ## updates
