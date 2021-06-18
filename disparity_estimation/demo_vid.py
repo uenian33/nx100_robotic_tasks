@@ -7,13 +7,13 @@ import matplotlib.pyplot as plt
 import sys
 import cv2
 import time
-
+import queue, threading, time
 # bufferless VideoCapture
 class VideoCapture:
 
   def __init__(self, name):
     self.cap = cv2.VideoCapture(name)
-    self.q = Queue.Queue()
+    self.q = queue.Queue()
     t = threading.Thread(target=self._reader)
     t.daemon = True
     t.start()
@@ -27,7 +27,7 @@ class VideoCapture:
       if not self.q.empty():
         try:
           self.q.get_nowait()   # discard previous (unprocessed) frame
-        except Queue.Empty:
+        except queue.Empty:
           pass
       self.q.put(frame)
 
@@ -48,14 +48,15 @@ right_image_path='../images/test2/camR/'+str(0)+'.jpg'
 
   
 # define a video capture object
-#vid = cv2.VideoCapture(0)
-vid = VideoCapture(0)
+vid = cv2.VideoCapture(-1)
+#vid = VideoCapture(-1)
 
 while(True):
       
     # Capture the video frame
     # by frame
     ret, image = vid.read()
+    print()
 
     height, width, channels = image.shape
     left_image = image[0:height, 0:int(width/2)] #this line crops
