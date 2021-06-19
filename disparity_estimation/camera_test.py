@@ -37,7 +37,6 @@ class Camera:
     def stream(self):
         # streaming thread 함수
         def streaming():
-            # 실제 thread 되는 함수
             self.ret = True
             while self.ret:
                 self.ret, np_image = self.cam.read()
@@ -46,7 +45,6 @@ class Camera:
                     print('no image')
                     continue
                 if self.mirror:
-                    # 거울 모드 시 좌우 반전
                     np_image = cv2.flip(np_image, 1)
                 if self.touched_zoom:
                     np_image = self.__zoom(np_image, (self.center_x, self.center_y))
@@ -63,7 +61,6 @@ class Camera:
 
 
     def save_picture(self):
-        # 이미지 저장하는 함수
         ret, img = self.cam.read()
         if ret:
             now = datetime.datetime.now()
