@@ -43,6 +43,9 @@ class CustomCamera(object):
                 model_file_name="disparity_estimation/Disparity/utils/STTR/sttr_light_sceneflow_pretrained_model.pth.tar",
                 wb_model_file_name="disparity_estimation/Disparity/utils/WB/models/")
 
+        # depth scale value, e.g. 105 pixel value in depth is equal to 36 cm by physical measurement
+        self.depth_scale = 36 / 104.5
+
         self.init_params()
 
     def init_params(self):
