@@ -10,6 +10,10 @@ import time
 import queue, threading, time
 from matplotlib import pyplot as plt
 
+sys.path.append('Disparity/utils/') # add relative path
+
+from Disparity.Disparity import DisparityEstimationDL, DisparityEstimationTradition
+
 # bufferless VideoCapture
 class VideoCapture:
 
@@ -35,24 +39,17 @@ class VideoCapture:
 
   def read(self):
     return self.q.get()
-
-sys.path.append('Disparity/utils/') # add relative path
-
-from Disparity.Disparity import DisparityEstimationDL, DisparityEstimationTradition
-
+    
 
 # example of using DL pipeline for disparity estimation
-"""
+#"""
 destimation = DisparityEstimationDL(
                 model_file_name="Disparity/utils/STTR/sttr_light_sceneflow_pretrained_model.pth.tar",
                 wb_model_file_name="Disparity/utils/WB/models/")
-#"""
+"""
 destimation = DisparityEstimationTradition(
                 wb_model_file_name="Disparity/utils/WB/models/")
 #"""
-left_image_path='../images/test2/camL/'+str(0)+'.jpg'
-right_image_path='../images/test2/camR/'+str(0)+'.jpg'
-
   
 # define a video capture object
 vid = cv2.VideoCapture(-1)
@@ -64,7 +61,7 @@ while(True):
     # Capture the video frame
     # by frame
     ret, image = vid.read()
-    print(image)
+    print(image.shape)
     #cv2.imshow("test",image)
 
     #plt.subplot(1, 2, 1)
@@ -75,8 +72,8 @@ while(True):
     left_image = image[0:height, 0:int(width/2)] #this line crops
     right_image = image[0:height,int(width/2):width] #this line crops
 
-    left_image = cv2.resize(left_image, dsize=(600, 400), interpolation=cv2.INTER_CUBIC)
-    right_image = cv2.resize(right_image, dsize=(600, 400), interpolation=cv2.INTER_CUBIC)
+    left_image = cv2.resize(left_image, dsize=(int(width/4), int(height/2)), interpolation=cv2.INTER_CUBIC)
+    right_image = cv2.resize(right_image, dsize=(int(width/4), int(height/2)), interpolation=cv2.INTER_CUBIC)
 
 
     #disp_pred, occ_pred = destimation.inference(left_image, right_image, white_balance=True, denoise=False)
