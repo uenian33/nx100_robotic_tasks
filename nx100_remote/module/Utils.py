@@ -17,8 +17,8 @@ def command_data_length(command):
 # just print some response details
 def print_response_details(command_response):
     command_response_len = len(command_response)
-    print("Command response length: %d" % command_response_len)
-    print("Command response: " + command_response)
+    #print("Command response length: %d" % command_response_len)
+    #print("Command response: " + command_response)
 
 
 # decimal to binary

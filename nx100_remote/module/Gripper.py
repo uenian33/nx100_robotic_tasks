@@ -31,6 +31,8 @@ def read_gripper_closed_command_register():
 # gripper close or open command ack
 def read_gripper_acknowledge():
     gripper_status = Gripper.Gripper()
+    print(GRIPPER_ACKNOWLEDGE_SIGNAL)
+    print(Commands.read_io_signals(IO.IO(GRIPPER_ACKNOWLEDGE_SIGNAL, 4)).response)
     gripper_status.set_closed_status(
         Commands.read_io_signals(IO.IO(GRIPPER_ACKNOWLEDGE_SIGNAL, 4))
     )
