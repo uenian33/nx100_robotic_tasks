@@ -27,10 +27,10 @@ class CameraData:
         if include_depth is False and include_rgb is False:
             raise ValueError('At least one of Depth or RGB must be specified.')
 
-        left = (width - output_size) // 2
-        top = (height - output_size) // 2
-        right = (width + output_size) // 2
-        bottom = (height + output_size) // 2
+        left =int((width - output_size) / 1)
+        top = int((height - output_size) / 1)
+        right =int( (width + output_size) / 1)
+        bottom = int((height + output_size) / 1)
 
         self.bottom_right = (bottom, right)
         self.top_left = (top, left)
@@ -44,15 +44,16 @@ class CameraData:
 
     def get_depth(self, img):
         depth_img = image.Image(img)
-        depth_img.crop(bottom_right=self.bottom_right, top_left=self.top_left)
+        #depth_img.crop(bottom_right=self.bottom_right, top_left=self.top_left)
         depth_img.normalise()
-        # depth_img.resize((self.output_size, self.output_size))
-        depth_img.img = depth_img.img.transpose((2, 0, 1))
+        #print(depth_img.shape)
+        #depth_img.resize((self.output_size, self.output_size))
+        #depth_img.img = depth_img.img.transpose((2, 0, 1))
         return depth_img.img
 
     def get_rgb(self, img, norm=True):
         rgb_img = image.Image(img)
-        rgb_img.crop(bottom_right=self.bottom_right, top_left=self.top_left)
+        #rgb_img.crop(bottom_right=self.bottom_right, top_left=self.top_left)
         # rgb_img.resize((self.output_size, self.output_size))
         if norm:
                 rgb_img.normalise()
@@ -65,12 +66,15 @@ class CameraData:
         # Load the depth image
         if self.include_depth:
             depth_img = self.get_depth(img=depth)
+            depth_img = np.expand_dims(depth_img, axis=0)
+
 
         # Load the RGB image
         if self.include_rgb:
             rgb_img = self.get_rgb(img=rgb)
 
         if self.include_depth and self.include_rgb:
+            print(depth_img.shape, rgb_img.shape)
             x = self.numpy_to_torch(
                     np.concatenate(
                         (np.expand_dims(depth_img, 0),

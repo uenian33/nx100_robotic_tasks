@@ -31,12 +31,19 @@ def read_gripper_closed_command_register():
 # gripper close or open command ack
 def read_gripper_acknowledge():
     gripper_status = Gripper.Gripper()
-    print(GRIPPER_ACKNOWLEDGE_SIGNAL)
-    print(Commands.read_io_signals(IO.IO(GRIPPER_ACKNOWLEDGE_SIGNAL, 4)).response)
-    gripper_status.set_closed_status(
-        Commands.read_io_signals(IO.IO(GRIPPER_ACKNOWLEDGE_SIGNAL, 4))
-    )
-    return gripper_status
+    res = Commands.read_io_signals(IO.IO(GRIPPER_ACKNOWLEDGE_SIGNAL, 1)).get_response()
+    # print('Gripper ack decimal: ' + res)
+    gripper_status.set_closed_status(res)
+    return gripper_status.is_gripper_closed()
+
+
+# same command as upper one but better function name
+def gripper_is_closed():
+    gripper_status = Gripper.Gripper()
+    res = Commands.read_io_signals(IO.IO(GRIPPER_ACKNOWLEDGE_SIGNAL, 1)).get_response()
+    # print('Gripper ack decimal: ' + res)
+    gripper_status.set_closed_status(res)
+    return gripper_status.is_gripper_closed()
 
 
 # gripper hit something signal on or off (this should program set hold or eStop on)

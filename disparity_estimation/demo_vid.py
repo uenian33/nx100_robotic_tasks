@@ -46,7 +46,7 @@ class VideoCapture:
 destimation = DisparityEstimationDL(
                 model_file_name="Disparity/utils/STTR/sttr_light_sceneflow_pretrained_model.pth.tar",
                 wb_model_file_name="Disparity/utils/WB/models/")
-#"""
+"""
 destimation = DisparityEstimationTradition(
                 wb_model_file_name="Disparity/utils/WB/models/")
 #"""
@@ -76,11 +76,16 @@ while(True):
     right_image = cv2.resize(right_image, dsize=(int(width), int(height*2)), interpolation=cv2.INTER_CUBIC)
 
 
-    #disp_pred, occ_pred = destimation.inference(left_image, right_image, white_balance=True, denoise=False)
-    disp_pred = destimation.inference(left_image, right_image, white_balance=True, denoise=True)
-
+    #disp_pred, occ_pred = destimation.inference(left_image, right_image, white_balance=False, denoise=False, reshape=False)
+    disp_pred = destimation.inference(left_image, right_image, white_balance=False, denoise=False, reshape=False)
+    disp_pred = disp_pred.astype(np.uint8)
+    print(disp_pred.dtype)
+    #plt.figure(5)
+    #plt.imshow(disp_pred)
+    #plt.show()
     # Display the resulting frame
     cv2.imshow('frame', disp_pred)
+    cv2.imshow('rgb', left_image)
       
     # the 'q' button is set as the
     # quitting button you may use any

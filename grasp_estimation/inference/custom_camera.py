@@ -6,12 +6,19 @@ import matplotlib.pyplot as plt
 import sys
 import cv2
 import time
+import os
+import datetime
+from threading import Thread
+from queue import Queue
+
+from Disparity.Disparity import DisparityEstimationDL, DisparityEstimationTradition
+
 
 class CustomCamera(object):
     """docstring for CustomCamera"""
-    def __init__(self, arg):
+    def __init__(self, mirror=False):
         super(CustomCamera, self).__init__()
-         self.data = None
+        self.data = None
         self.cam = cv2.VideoCapture(0)
 
         self.WIDTH = 640
@@ -30,6 +37,12 @@ class CustomCamera(object):
         self.recording = False
 
         self.mirror = mirror
+        #self.destimation = DisparityEstimationTradition(
+        #        wb_model_file_name="disparity_estimation/Disparity/utils/WB/models/")
+        self.destimation = DisparityEstimationDL(
+                model_file_name="disparity_estimation/Disparity/utils/STTR/sttr_light_sceneflow_pretrained_model.pth.tar",
+                wb_model_file_name="disparity_estimation/Disparity/utils/WB/models/")
+
         self.init_params()
 
     def init_params(self):
@@ -56,19 +69,21 @@ class CustomCamera(object):
         time.sleep(2)
 
     def get_image_bundle(self, rw=600,rh=400):
-           frame = self.data
-        if frame is None:
-            while (frame is None):
-                frame = self.data
-        else:
-            height, width, channels = image.shape
-            left_image = image[0:height, 0:int(width/2)] #this line crops
-            right_image = image[0:height,int(width/2):width] #this line crops
+        image = self.data
+        while (image is None):
+            image = self.data
+        height, width, channels = image.shape
+        left_image = image[0:height, 0:int(width/2)] #this line crops
+        right_image = image[0:height,int(width/2):width] #this line crops
 
-            left_image = cv2.resize(left_image, dsize=(rw, rh), interpolation=cv2.INTER_CUBIC)
-            right_image = cv2.resize(right_image, dsize=(rw, rh), interpolation=cv2.INTER_CUBIC)
+        left_image = cv2.resize(left_image, dsize=(rw, rh), interpolation=cv2.INTER_CUBIC)
+        right_image = cv2.resize(right_image, dsize=(rw, rh), interpolation=cv2.INTER_CUBIC)
 
-            disp_pred, occ_pred = destimation.inference(left_image, right_image, white_balance=True, denoise=False)
+        try:
+            disp_pred, occ_pred = self.destimation.inference(left_image, right_image, white_balance=True, denoise=False, reshape=False)
+            print(disp_pred.shape)
+        except:
+            disp_pred = self.destimation.inference(left_image, right_image, white_balance=True, denoise=False, reshape=False)
 
         return left_image, disp_pred
 
