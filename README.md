@@ -1,6 +1,11 @@
 # Stereo camera + Motoman NX100 learning tasks
 Potential tasks implementation for [nx100-remote-control](https://github.com/norkator/nx100-remote-control) repository 
-NX100 control backend.
+NX100 control backend. The tasks designed so far (implemented and to be implemented):
+- [x] Dsiparity estimation from stereo camera.
+- [x] Object grasping pose estimation.
+- [ ] Depth-only aware grasping for generalized objects.
+- [ ] Semantic visual detections. 
+- [ ] Map reconstruction.
 
 
 Table of contents
