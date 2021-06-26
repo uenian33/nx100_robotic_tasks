@@ -1,10 +1,4 @@
-import sys
-sys.path.append('disparity_estimation/Disparity/utils/') # add relative path
-sys.path.append('grasp_estimation/') # add relative path
-sys.path.append('nx100_remote/') # add relative path
-sys.path.append('disparity_estimation/') # add relative path
-
-from inference.grasp_generator import GraspGenerator
+from libs.grasp_estimation.inference.grasp_generator import GraspGenerator
 
 if __name__ == '__main__':
     generator = GraspGenerator(
@@ -14,4 +8,18 @@ if __name__ == '__main__':
     )
     generator.load_model()
     generator.camera.stream()
-    generator.run()
+    target_robot_pose = generator.generate()
+	Commands.write_linear_move(MoveL.MoveL(
+	        0, 45, 0,
+	        target_robot_pose[0],
+	        target_robot_pose[1],
+	        target_robot_pose[2],
+	        target_robot_pose[3],
+	        target_robot_pose[4],
+	        target_robot_pose[5],
+	        Utils.binary_to_decimal(0x00000001)
+	    ))
+
+	time.sleep(10)
+	Gripper.write_gripper_close()
+
