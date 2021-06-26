@@ -5,11 +5,11 @@ import matplotlib.pyplot as plt
 import numpy as np
 import torch
 
-from libs.grasp_estimation.inference.custom_camera import CustomCamera
+from libs.camera.custom_camera import CustomCamera
+from libs.camera.camera_data import CameraData
 
 from libs.grasp_estimation.hardware.device import get_device
 from libs.grasp_estimation.inference.post_process import post_process_output
-from libs.grasp_estimation.utils.data.camera_data import CameraData
 from libs.grasp_estimation.utils.dataset_processing.grasp import detect_grasps
 from libs.grasp_estimation.utils.visualisation.plot import plot_grasp
 

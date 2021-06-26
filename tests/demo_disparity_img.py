@@ -8,9 +8,8 @@ import sys
 import cv2
 import time
 
-sys.path.append('Disparity/utils/') # add relative path
 
-from Disparity.Disparity import DisparityEstimationDL, DisparityEstimationTradition
+from libs.disparity_estimation.Disparity.Disparity import DisparityEstimationDL, DisparityEstimationTradition
 
 
 # example of using DL pipeline for disparity estimation

@@ -12,7 +12,7 @@ from matplotlib import pyplot as plt
 
 sys.path.append('Disparity/utils/') # add relative path
 
-from Disparity.Disparity import DisparityEstimationDL, DisparityEstimationTradition
+from libs.disparity_estimation.Disparity.Disparity import DisparityEstimationDL, DisparityEstimationTradition
 
 # bufferless VideoCapture
 class VideoCapture:
