@@ -1,0 +1,3 @@
+[submodule "nx100-remote-control"]
+	path = nx100-remote-control
+	url = https://github.com/norkator/nx100-remote-control.git
