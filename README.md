@@ -31,5 +31,5 @@ To-do list
 
 Usage examples
 ============
-See [disparity_estimation](./disparity_estimation/README.md) and 
-[stereo folders](./stereo_vision/stereo_calibration+undistortion+depth_pipeline.ipynb) correspondingly.
+See [disparity_estimation](./libs/disparity_estimation/README.md) and 
+[stereo folders](./libs/camera_calibration/stereo_vision/stereo_calibration+undistortion+depth_pipeline.ipynb) correspondingly.
