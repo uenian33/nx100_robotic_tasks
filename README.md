@@ -1,4 +1,4 @@
-# Stereo camera + Motoman NX100 learning tasks
+# Motoman NX100 learning task pipeline
 Potential tasks implementation for [nx100-remote-control](https://github.com/norkator/nx100-remote-control) repository 
 NX100 control backend. The tasks designed so far (implemented and to be implemented):
 - [x] Dsiparity estimation from stereo camera.
@@ -15,8 +15,9 @@ Table of contents
 * [Usage examples](#usage-examples)
 
 
-Updates
+Big Updates
 ============
+- 2021.26.6: refactored some class implementations
 - 2021.6.6: fixed disparity estimation, two disparity pipeline added for more robust estimation
 
 
@@ -30,5 +31,5 @@ To-do list
 
 Usage examples
 ============
-See [disparity_estimation](./disparity_estimation/README.md) and 
-[stereo folders](./stereo_vision/stereo_calibration+undistortion+depth_pipeline.ipynb) correspondingly.
+See [disparity_estimation](./libs/disparity_estimation/README.md) and 
+[stereo folders](./libs/camera_calibration/stereo_vision/stereo_calibration+undistortion+depth_pipeline.ipynb) correspondingly.
