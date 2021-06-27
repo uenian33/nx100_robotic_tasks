@@ -5,8 +5,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 import torch
 
-from libs.camera.custom_camera import CustomCamera
-from libs.camera.camera_data import CameraData
+#from libs.camera.custom_camera import CustomCamera
+#from libs.camera.camera_data import CameraData
 
 from libs.grasp_estimation.hardware.device import get_device
 from libs.grasp_estimation.inference.post_process import post_process_output
@@ -21,15 +21,15 @@ import cv2
 
 
 class GraspGenerator:
-    def __init__(self, saved_model_path, cam_id, visualize=False):
+    def __init__(self, camera, cam_data,  saved_model_path, cam_id, visualize=False):
         self.saved_model_path = saved_model_path
-        self.camera = CustomCamera()
+        self.camera = camera #CustomCamera()
 
         self.saved_model_path = saved_model_path
         self.model = None
         self.device = None
 
-        self.cam_data = CameraData(include_depth=True, include_rgb=True)
+        self.cam_data = cam_data#CameraData(include_depth=True, include_rgb=True)
 
         # Connect to camera
         #self.camera.connect()
