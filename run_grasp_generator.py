@@ -1,18 +1,8 @@
 from libs.grasp_estimation.inference.grasp_generator import GraspGenerator
 from libs.camera.custom_camera import CustomCamera
 from libs.camera.camera_data import CameraData
-
-from nx100_remote_control.module import Commands, Utils
+from nx100_remote_control.module import Commands, LinearMove, Gripper, Utils
 from nx100_remote_control.objects import MoveL
-
-
-def callback_success():
-    print('MoveL position has been reached')
-
-
-def callback_failed():
-    print('MoveL error or position not reached on given timeout')
-
 
 if __name__ == '__main__':
     # init camera setups
@@ -45,8 +35,7 @@ move_l = MoveL.MoveL(
     0, 0, 0, 0, 0, 0, 0
 )
 
-Commands.robot_in_target_point_callback(
-    move_l=move_l, timeout=10, _callback_success=callback_success, _callback_failed=callback_failed
-)
+linear_move = LinearMove.LinearMove()
+linear_move.go(move_l=move_l, wait=True, poll_limit_seconds=10)
 
 Gripper.write_gripper_close()
