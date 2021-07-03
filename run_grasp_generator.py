@@ -3,13 +3,21 @@ from libs.camera.custom_camera import CustomCamera
 from libs.camera.camera_data import CameraData
 from nx100_remote_control.module import Commands, LinearMove, Gripper, Utils
 from nx100_remote_control.objects import MoveL
+import nx100_remote_control
 
 if __name__ == '__main__':
     # init camera setups
     camera = CustomCamera()
     cam_data = CameraData(include_depth=True, include_rgb=True)
 
-    # init graspping
+    # init robot
+    nx100_remote_control.NX100_IP_ADDRESS = '192.168.2.28'
+    nx100_remote_control.NX100_TCP_PORT = 80
+    nx100_remote_control.MOCK_RESPONSE = False
+
+# Todo, move here to starting point A on top of target camera detection point with upcoming MOVJ
+
+# init grasping
 generator = GraspGenerator(
     camera,
     cam_data,
@@ -39,3 +47,9 @@ linear_move = LinearMove.LinearMove()
 linear_move.go(move_l=move_l, wait=True, poll_limit_seconds=10)
 
 Gripper.write_gripper_close()
+
+# Todo, move here slowly bit up before executing next MOVJ
+
+# Todo, move robot to point B with fast MOVJ
+
+# Todo, move to predefined "production lines" where parts are placed with MOVL
