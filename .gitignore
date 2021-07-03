@@ -1,2 +1,5 @@
 # Idea
 .idea
+
+# Pyc files
+*.pyc
