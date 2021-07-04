@@ -1,9 +1,17 @@
 from libs.grasp_estimation.inference.grasp_generator import GraspGenerator
 from libs.camera.custom_camera import CustomCamera
 from libs.camera.camera_data import CameraData
-from nx100_remote_control.module import Commands, LinearMove, Gripper, Utils
-from nx100_remote_control.objects import MoveL
+from nx100_remote_control.module import Commands, LinearMove, JointMove, Gripper, Utils
+from nx100_remote_control.objects import MoveL, MoveJ
 import nx100_remote_control
+import time
+
+# Todo, define proper starting point
+# starting_point = [123, 123, 123, 20, 20, 10]
+# Todo, define joint move position
+# joint_position_1 = [123, 123, 123, 20, 20, 10]
+# joint_position_2 = [123, 123, 123, 20, 20, 10]
+
 
 if __name__ == '__main__':
     # init camera setups
@@ -15,7 +23,36 @@ if __name__ == '__main__':
     nx100_remote_control.NX100_TCP_PORT = 80
     nx100_remote_control.MOCK_RESPONSE = False
 
+
+def linear_move(target):
+    move_l = MoveL.MoveL(
+        MoveL.MoveL.motion_speed_selection_posture_speed,
+        5,
+        MoveL.MoveL.coordinate_specification_base_coordinate,
+        target[0], target[1], target[2],
+        target[3], target[4], target[5],
+        Utils.binary_to_decimal(0x00000001),
+        0, 0, 0, 0, 0, 0, 0
+    )
+    linear_move = LinearMove.LinearMove()
+    linear_move.go(move_l=move_l, wait=True, poll_limit_seconds=10)
+
+
+def joint_move(target):
+    move_j = MoveJ.MoveJ(
+        10,  # speed % todo, set higher when feeling confident
+        MoveJ.MoveJ.coordinate_specification_base_coordinate,
+        target[0], target[1], target[2],
+        target[3], target[4], target[5],
+        Utils.binary_to_decimal(0x00000001),
+        0, 0, 0, 0, 0, 0, 0
+    )
+    joint_move = JointMove.JointMove()
+    joint_move.go(move_j=move_j, wait=True, poll_limit_seconds=10)
+
+
 # Todo, move here to starting point A on top of target camera detection point with upcoming MOVJ
+# linear_move(starting_point)
 
 # init grasping
 generator = GraspGenerator(
@@ -29,27 +66,19 @@ generator.load_model()
 generator.camera.stream()
 target_robot_pose = generator.generate()
 
-move_l = MoveL.MoveL(
-    MoveL.MoveL.motion_speed_selection_posture_speed,
-    5,
-    MoveL.MoveL.coordinate_specification_base_coordinate,
-    target_robot_pose[0],
-    target_robot_pose[1],
-    target_robot_pose[2],
-    target_robot_pose[3],
-    target_robot_pose[4],
-    target_robot_pose[5],
-    Utils.binary_to_decimal(0x00000001),
-    0, 0, 0, 0, 0, 0, 0
-)
-
-linear_move = LinearMove.LinearMove()
-linear_move.go(move_l=move_l, wait=True, poll_limit_seconds=10)
-
+linear_move(target_robot_pose)
 Gripper.write_gripper_close()
+time.sleep(5)
 
-# Todo, move here slowly bit up before executing next MOVJ
+# Todo, move here slowly bit up before executing next MOVJ (starting point maybe?)
+# linear_move(starting_point)
 
 # Todo, move robot to point B with fast MOVJ
+# joint_move(joint_position_1)
+# joint_move(joint_position_2)
 
-# Todo, move to predefined "production lines" where parts are placed with MOVL
+# Gripper.write_gripper_open()
+# time.sleep(5)
+
+# back to start point
+# joint_move(starting_point)
