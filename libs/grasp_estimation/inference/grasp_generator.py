@@ -58,7 +58,7 @@ class GraspGenerator:
         # Get the compute device
         self.device = get_device(force_cpu=False)
 
-    def generate(self):
+    def generate(self, visualize=False):
         # Get RGB-D image from camera
         image_bundle = self.camera.get_image_bundle()
         rgb = image_bundle[0]  # ['rgb']
@@ -77,7 +77,7 @@ class GraspGenerator:
         q_img, ang_img, width_img = post_process_output(pred['pos'], pred['cos'], pred['sin'], pred['width'])
         grasps = detect_grasps(q_img, ang_img, width_img)
 
-        if self.fig:
+        if visualize:
             plot_grasp(fig=self.fig, rgb_img=self.cam_data.get_rgb(rgb, False), grasps=grasps, save=False)
         # print(grasps)
 
@@ -102,12 +102,6 @@ class GraspGenerator:
         pos_y = np.multiply(grasps[0].center[0] * xy_scale - self.camera.left_intrinsics[1][2],
                             pos_z / self.camera.left_intrinsics[1][1])
 
-        # pos_z = depth[grasps[0].center[0], grasps[0].center[1]] * self.cam_depth_scale - 0.04
-        # pos_x = np.multiply(grasps[0].center[1] + self.cam_data.top_left[1] - self.camera.intrinsics.ppx,
-        #                    pos_z / self.camera.intrinsics.fx)
-        # pos_y = np.multiply(grasps[0].center[0] + self.cam_data.top_left[0] - self.camera.intrinsics.ppy,
-        #                    pos_z / self.camera.intrinsics.fy)
-
         if pos_z == 0:
             return
 
@@ -129,42 +123,6 @@ class GraspGenerator:
                              c_pose.ty,
                              c_pose.tz + angle]
 
-        """
-        c_pose = self.get_end_effector_position()
-        
-
-        Commands.write_linear_move(MoveL.MoveL(
-                1, 4, 0,
-                c_pose.x,
-                c_pose.y,
-                c_pose.z, 
-                target_robot_pose[3],
-                target_robot_pose[4],
-                target_robot_pose[5], 
-                Utils.binary_to_decimal(0x00000001)
-            ))
-        """
-
-        """
-        # Convert camera to robot coordinates
-        camera2robot = self.cam_pose
-        target_position = np.dot(camera2robot[0:3, 0:3], target) + camera2robot[0:3, 3:]
-        target_position = target_position[0:3, 0]
-
-        # Convert camera to robot angle
-        angle = np.asarray([0, 0, grasps[0].angle])
-        angle.shape = (3, 1)
-        target_angle = np.dot(camera2robot[0:3, 0:3], angle)
-
-        # Concatenate grasp pose with grasp angle
-        grasp_pose = np.append(target_position, target_angle[2])
-
-        print('grasp_pose: ', grasp_pose)
-
-        np.save(self.grasp_pose, grasp_pose)
-        """
-        # if self.fig:
-        #    plot_grasp(fig=self.fig, rgb_img=self.cam_data.get_rgb(rgb, False), grasps=grasps, save=False)
 
         return target_robot_pose  # np.append(target_position, target_angle)
 
