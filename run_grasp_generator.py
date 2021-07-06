@@ -7,7 +7,7 @@ import nx100_remote_control
 import time
 
 # Todo, define proper starting point
-# starting_point = [123, 123, 123, 20, 20, 10]
+starting_point = [-70.888, 836.813, 281.496, 0.21, 36.59, 90.14]
 # Todo, define joint move position
 # joint_position_1 = [123, 123, 123, 20, 20, 10]
 # joint_position_2 = [123, 123, 123, 20, 20, 10]
@@ -51,8 +51,8 @@ def joint_move(target):
     joint_move.go(move_j=move_j, wait=True, poll_limit_seconds=10)
 
 
-# Todo, move here to starting point A on top of target camera detection point with upcoming MOVJ
-# linear_move(starting_point)
+# !!! starting point move with movj !!!
+joint_move(starting_point)
 
 # init grasping
 generator = GraspGenerator(
