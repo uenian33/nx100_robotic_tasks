@@ -14,6 +14,7 @@ from libs.grasp_estimation.utils.dataset_processing.grasp import detect_grasps
 from libs.grasp_estimation.utils.visualisation.plot import plot_grasp
 
 # libs from motoman remote control https://github.com/norkator/nx100-remote-control/blob/b7a4392f0e182670986ca9488ccd58a3d09ae8b1/XboxController.py#L41
+import nx100_remote_control
 from nx100_remote_control.module import Commands, Utils, Gripper
 
 import cv2
@@ -29,6 +30,9 @@ class GraspGenerator:
         self.device = None
 
         self.cam_data = cam_data  # CameraData(include_depth=True, include_rgb=True)
+
+        # Init robot
+        nx100_remote_control.MOCK_RESPONSE = False
 
         # Connect to camera
         # self.camera.connect()

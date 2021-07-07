@@ -59,7 +59,7 @@ generator = GraspGenerator(
     camera,
     cam_data,
     cam_id=830112070066,
-    saved_model_path='grasp_estimation/trained-models/cornell-randsplit-rgbd-grconvnet3-drop1-ch32/epoch_13_iou_0.96',
+    saved_model_path="grasp_estimation/trained-models/cornell-randsplit-rgbd-grconvnet3-drop1-ch32/epoch_13_iou_0.96",
     visualize=True
 )
 generator.load_model()
