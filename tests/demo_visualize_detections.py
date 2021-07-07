@@ -1,3 +1,4 @@
+import os
 import sys
 from pathlib import Path # if you haven't already done so
 file = Path(__file__).resolve()
@@ -18,8 +19,8 @@ import time
 
 if __name__ == '__main__':
     # init camera setups
-    camera = CustomCamera(disp_model_pth="libs/disparity_estimation/Disparity/utils/STTR/sttr_light_sceneflow_pretrained_model.pth.tar",
-                          wb_model_pth="libs/disparity_estimation/Disparity/utils/WB/models/")
+    camera = CustomCamera(disp_model_pth=os.getcwd() + "/libs/disparity_estimation/Disparity/utils/STTR/sttr_light_sceneflow_pretrained_model.pth.tar",
+                          wb_model_pth=os.getcwd() + "/libs/disparity_estimation/Disparity/utils/WB/models/")
     cam_data = CameraData(include_depth=True, include_rgb=True)
 
     # init grasping
@@ -27,7 +28,7 @@ if __name__ == '__main__':
         camera,
         cam_data,
         cam_id=830112070066,
-        saved_model_path='libs/grasp_estimation/trained-models/jacquard-rgbd-grconvnet3-drop0-ch32/epoch_48_iou_0.93',
+        saved_model_path=os.getcwd() + "/libs/grasp_estimation/trained-models/jacquard-rgbd-grconvnet3-drop0-ch32/epoch_48_iou_0.93",
         visualize=True
     )
     generator.load_model()

@@ -17,8 +17,8 @@ from ..disparity_estimation.Disparity.Disparity import DisparityEstimationDL, Di
 class CustomCamera(object):
     """docstring for CustomCamera"""
     def __init__(self, mirror=False,
-                       disp_model_pth="disparity_estimation/Disparity/utils/STTR/sttr_light_sceneflow_pretrained_model.pth.tar",
-                       wb_model_pth="disparity_estimation/Disparity/utils/WB/models/"):
+                       disp_model_pth=os.getcwd() + "/libs/disparity_estimation/Disparity/utils/STTR/sttr_light_sceneflow_pretrained_model.pth.tar",
+                       wb_model_pth=os.getcwd() + "/libs/disparity_estimation/Disparity/utils/WB/models/"):
         super(CustomCamera, self).__init__()
         self.data = None
         self.cam = cv2.VideoCapture(0)
