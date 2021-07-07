@@ -1,9 +1,7 @@
 import os
 import sys
-from pathlib import Path # if you haven't already done so
-file = Path(__file__).resolve()
-parent, root = file.parent, file.parents[1]
-sys.path.append(str(root))
+
+sys.path.append('libs/grasp_estimation')
 
 from libs.grasp_estimation.inference.grasp_generator import GraspGenerator
 from libs.camera.custom_camera import CustomCamera
