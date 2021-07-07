@@ -3,9 +3,20 @@ import cv2
 import torch
 from PIL import Image
 
-# Model
-model = torch.hub.load('ultralytics/yolov5', 'yolov5s')
+class ObjDetector(object):
+    """docstring for ObjDetector"""
+    def __init__(self, arg):
+        super(ObjDetector, self).__init__()
+        self.model = torch.hub.load('ultralytics/yolov5', 'yolov5s')
 
+
+    def inference(self, img, size=640, visualize=False):
+        results = model(imgs, size=size)  # includes NMS
+        if visualize:
+            results.show()
+        return results.xyxy
+
+"""
 # Images
 for f in ['zidane.jpg', 'bus.jpg']:
     torch.hub.download_url_to_file('https://ultralytics.com/images/' + f, f)  # download 2 images
@@ -27,3 +38,4 @@ results.pandas().xyxy[0]  # img1 predictions (pandas)
 # 1  433.50  433.50   517.5  714.5    0.687988     27     tie
 # 2  114.75  195.75  1095.0  708.0    0.624512      0  person
 # 3  986.00  304.00  1028.0  420.0    0.286865     27     tie
+"""
