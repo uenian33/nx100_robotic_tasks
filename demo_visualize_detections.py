@@ -26,7 +26,8 @@ if __name__ == '__main__':
         camera,
         cam_data,
         cam_id=830112070066,
-        saved_model_path=os.getcwd() + "/libs/grasp_estimation/trained-models/jacquard-rgbd-grconvnet3-drop0-ch32/epoch_48_iou_0.93",
+        #  saved_model_path=os.getcwd() + "/libs/grasp_estimation/trained-models/jacquard-rgbd-grconvnet3-drop0-ch32/epoch_48_iou_0.93",
+        saved_model_path=os.getcwd() + "/libs/grasp_estimation/trained-models/cornell-randsplit-rgbd-grconvnet3-drop1-ch32/epoch_13_iou_0.96",
         visualize=True
     )
     generator.load_model()
