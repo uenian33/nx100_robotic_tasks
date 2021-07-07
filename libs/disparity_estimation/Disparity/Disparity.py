@@ -10,6 +10,7 @@ import matplotlib.pyplot as plt
 import sys
 import cv2
 import time
+import os
 
 from libs.disparity_estimation.Disparity.utils.WB.classes import WBsRGB as wb_srgb
 
@@ -148,8 +149,8 @@ class DisparityEstimationDL(object):
                 cal_num_blocks=8,
                 cal_feat_dim=16,
                 cal_expansion_ratio=4, 
-                model_file_name="STTR/sttr_light_sceneflow_pretrained_model.pth.tar",
-                wb_model_file_name="WB/models/"):
+                model_file_name=os.getcwd() + "/libs/disparity_estimation/Disparity/utils/STTR/sttr_light_sceneflow_pretrained_model.pth.tar",
+                wb_model_file_name=os.getcwd() + "/libs/disparity_estimation/Disparity/utils/WB/models"):
         super(DisparityEstimationDL, self).__init__()
         
         # Default parameters
