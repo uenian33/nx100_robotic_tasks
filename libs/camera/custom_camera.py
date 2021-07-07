@@ -11,12 +11,14 @@ import datetime
 from threading import Thread
 from queue import Queue
 
-from Disparity.Disparity import DisparityEstimationDL, DisparityEstimationTradition
+from ..disparity_estimation.Disparity.Disparity import DisparityEstimationDL, DisparityEstimationTradition
 
 
 class CustomCamera(object):
     """docstring for CustomCamera"""
-    def __init__(self, mirror=False):
+    def __init__(self, mirror=False,
+                       disp_model_pth="disparity_estimation/Disparity/utils/STTR/sttr_light_sceneflow_pretrained_model.pth.tar",
+                       wb_model_pth="disparity_estimation/Disparity/utils/WB/models/"):
         super(CustomCamera, self).__init__()
         self.data = None
         self.cam = cv2.VideoCapture(0)
@@ -40,8 +42,8 @@ class CustomCamera(object):
         #self.destimation = DisparityEstimationTradition(
         #        wb_model_file_name="disparity_estimation/Disparity/utils/WB/models/")
         self.destimation = DisparityEstimationDL(
-                model_file_name="disparity_estimation/Disparity/utils/STTR/sttr_light_sceneflow_pretrained_model.pth.tar",
-                wb_model_file_name="disparity_estimation/Disparity/utils/WB/models/")
+                model_file_name=disp_model_pth,
+                wb_model_file_name=wb_model_pth)
 
         # depth scale value, e.g. 105 pixel value in depth is equal to 36 cm by physical measurement
         self.depth_scale = 36 / 104.5

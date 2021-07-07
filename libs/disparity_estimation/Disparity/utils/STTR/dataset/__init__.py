@@ -4,11 +4,11 @@
 
 import torch.utils.data as data
 
-from STTR.dataset.kitti import KITTI2015Dataset, KITTI2012Dataset, KITTIDataset
-from STTR.dataset.middlebury import Middlebury2014Dataset
-from STTR.dataset.scared import ScaredDataset
-from STTR.dataset.scene_flow import SceneFlowSamplePackDataset, SceneFlowFlyingThingsDataset, SceneFlowMonkaaDataset
-from STTR.dataset.sintel import SintelDataset
+from libs.disparity_estimation.Disparity.utils.STTR.dataset.kitti import KITTI2015Dataset, KITTI2012Dataset, KITTIDataset
+from libs.disparity_estimation.Disparity.utils.STTR.dataset.middlebury import Middlebury2014Dataset
+from libs.disparity_estimation.Disparity.utils.STTR.dataset.scared import ScaredDataset
+from libs.disparity_estimation.Disparity.utils.STTR.dataset.scene_flow import SceneFlowSamplePackDataset, SceneFlowFlyingThingsDataset, SceneFlowMonkaaDataset
+from libs.disparity_estimation.Disparity.utils.STTR.dataset.sintel import SintelDataset
 
 
 def build_data_loader(args):

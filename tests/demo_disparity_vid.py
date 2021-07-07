@@ -1,3 +1,8 @@
+import sys
+from pathlib import Path # if you haven't already done so
+file = Path(__file__).resolve()
+parent, root = file.parent, file.parents[1]
+sys.path.append(str(root))
 
 from PIL import Image
 import torch
@@ -10,10 +15,10 @@ import time
 import queue, threading, time
 from matplotlib import pyplot as plt
 
-sys.path.append('Disparity/utils/') # add relative path
 
 from libs.disparity_estimation.Disparity.Disparity import DisparityEstimationDL, DisparityEstimationTradition
 
+print(cv2.__version__)
 # bufferless VideoCapture
 class VideoCapture:
 
@@ -44,8 +49,8 @@ class VideoCapture:
 # example of using DL pipeline for disparity estimation
 #"""
 destimation = DisparityEstimationDL(
-                model_file_name="Disparity/utils/STTR/sttr_light_sceneflow_pretrained_model.pth.tar",
-                wb_model_file_name="Disparity/utils/WB/models/")
+                model_file_name="libs/disparity_estimation/Disparity/utils/STTR/sttr_light_sceneflow_pretrained_model.pth.tar",
+                wb_model_file_name="libs/disparity_estimation/Disparity/utils/WB/models/")
 """
 destimation = DisparityEstimationTradition(
                 wb_model_file_name="Disparity/utils/WB/models/")
