@@ -76,7 +76,7 @@ class GraspGenerator:
         with torch.no_grad():
             xc = x.to(self.device)
             pred = self.model.predict(xc)
-            print(pred)
+            #print(pred)
 
         q_img, ang_img, width_img = post_process_output(pred['pos'], pred['cos'], pred['sin'], pred['width'])
         grasps = detect_grasps(q_img, ang_img, width_img)
@@ -94,11 +94,11 @@ class GraspGenerator:
         xy_scale = origin_w / curr_im_w
 
         # the xyz offset between camera and gripper
-        z_offset = 1 * 130.7
+        z_offset = 1 * 110.7  # original 130.7
         x_offset = -55.87
         y_offset = 50.77
 
-        print(depth[grasps[0].center[0], grasps[0].center[1]])
+        #print(depth[grasps[0].center[0], grasps[0].center[1]])
         pos_z = self.camera.depth_scale * depth[grasps[0].center[0], grasps[0].center[
             1]] - 0.04  # self.camera.left_intrinsics[0][0] / depth[grasps[0].center[0], grasps[0].center[1]] - 0.04
         pos_x = np.multiply(grasps[0].center[1] * xy_scale - self.camera.left_intrinsics[0][2],
@@ -111,12 +111,9 @@ class GraspGenerator:
 
         target = np.asarray([pos_x, pos_y, pos_z])
         target.shape = (3, 1)
-        print('target: ', target, grasps[0].angle)
+        print('target: ', target, grasps[0].angle, pos_z)
         c_pose = self.get_end_effector_position()
-        print(np.array([-pos_x * 10 + x_offset,
-                        -pos_y * 10 + y_offset,
-                        -pos_z * 10,
-                        -pos_z * 0 + z_offset]))
+
 
         angle = grasps[0].angle / np.pi * 180
 

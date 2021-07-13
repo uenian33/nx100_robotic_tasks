@@ -10,11 +10,11 @@ import sys
 
 sys.path.append('libs/grasp_estimation')
 
-# Todo, define proper starting point
+# Starting point (uses camera here to see what to grasp)
 starting_point = [-70.888, 836.813, 281.496, 0.21, 36.59, 90.14]
-# Todo, define joint move position
-# joint_position_1 = [123, 123, 123, 20, 20, 10]
-# joint_position_2 = [123, 123, 123, 20, 20, 10]
+# Table points
+top_of_table_1 = [828.622,5.405,307.428,0.43,34.43,-4.20,0,0]  # move fast to this point
+top_of_table_2 = [593.274,-36.586,-2.323,-3.79,36.29,-8.03,0,0]  # move slower here
 
 
 if __name__ == '__main__':
@@ -31,7 +31,7 @@ if __name__ == '__main__':
 def linear_move(target):
     move_l = MoveL.MoveL(
         MoveL.MoveL.motion_speed_selection_posture_speed,
-        5,
+        2,
         MoveL.MoveL.coordinate_specification_base_coordinate,
         target[0], target[1], target[2],
         target[3], target[4], target[5],
@@ -42,9 +42,9 @@ def linear_move(target):
     linear_move.go(move_l=move_l, wait=True, poll_limit_seconds=10)
 
 
-def joint_move(target):
+def joint_move(target, speed=5):
     move_j = MoveJ.MoveJ(
-        10,  # speed % todo, set higher when feeling confident
+        speed,  # speed % todo, set higher when feeling confident
         MoveJ.MoveJ.coordinate_specification_base_coordinate,
         target[0], target[1], target[2],
         target[3], target[4], target[5],
@@ -77,14 +77,15 @@ Gripper.write_gripper_open()  # actually closes
 time.sleep(5)
 
 # Todo, move here slowly bit up before executing next MOVJ (starting point maybe?)
-# linear_move(starting_point)
+joint_move(starting_point)
 
 # Todo, move robot to point B with fast MOVJ
-# joint_move(joint_position_1)
-# joint_move(joint_position_2)
+joint_move(top_of_table_1, 20)
+joint_move(top_of_table_2)
 
-# Gripper.write_gripper_open()
-# time.sleep(5)
+Gripper.write_gripper_close()
+time.sleep(5)
 
 # back to start point
-# joint_move(starting_point)
+joint_move(top_of_table_1)
+joint_move(starting_point, 20)
