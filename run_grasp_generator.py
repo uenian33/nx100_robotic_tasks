@@ -5,6 +5,10 @@ from nx100_remote_control.module import Commands, LinearMove, JointMove, Gripper
 from nx100_remote_control.objects import MoveL, MoveJ
 import nx100_remote_control
 import time
+import os
+import sys
+
+sys.path.append('libs/grasp_estimation')
 
 # Todo, define proper starting point
 starting_point = [-70.888, 836.813, 281.496, 0.21, 36.59, 90.14]
@@ -21,7 +25,7 @@ if __name__ == '__main__':
     # init robot
     nx100_remote_control.NX100_IP_ADDRESS = '192.168.2.28'
     nx100_remote_control.NX100_TCP_PORT = 80
-    nx100_remote_control.MOCK_RESPONSE = True
+    nx100_remote_control.MOCK_RESPONSE = False
 
 
 def linear_move(target):
@@ -51,6 +55,8 @@ def joint_move(target):
     joint_move.go(move_j=move_j, wait=True, poll_limit_seconds=10)
 
 
+Gripper.write_gripper_close()  # actually opens..
+
 # !!! starting point move with movj !!!
 joint_move(starting_point)
 
@@ -59,7 +65,7 @@ generator = GraspGenerator(
     camera,
     cam_data,
     cam_id=830112070066,
-    saved_model_path="grasp_estimation/trained-models/cornell-randsplit-rgbd-grconvnet3-drop1-ch32/epoch_13_iou_0.96",
+    saved_model_path=os.getcwd() + "/libs/grasp_estimation/trained-models/cornell-randsplit-rgbd-grconvnet3-drop1-ch32/epoch_13_iou_0.96",
     visualize=True
 )
 generator.load_model()
@@ -67,7 +73,7 @@ generator.camera.stream()
 target_robot_pose = generator.generate()
 
 linear_move(target_robot_pose)
-Gripper.write_gripper_close()
+Gripper.write_gripper_open()  # actually closes
 time.sleep(5)
 
 # Todo, move here slowly bit up before executing next MOVJ (starting point maybe?)
