@@ -1,4 +1,4 @@
-nx100-remote-control==1.0.2
+nx100-remote-control==1.0.3
 matplotlib==3.4.2
 torch==1.9.0
 opencv-python=4.5.2.54
